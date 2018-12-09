@@ -9,43 +9,89 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="https://code.jquery.com/jquery.js"></script>
     </head>
     <body>
-        <div>
+        <div class="w3-container w3-blue">
         <h1>Take Our Survey</h1>
         <p>On a Scale of 1 to 5 let us know how you feel about the following...</p>
         </div>
-        <div>
-            <form>
+        <div class="w3-card">
+            <form class="w3-container w3-green"> 
+               
+               <label for="name">Name</label>
+               <input type="text" class="w3-input" id="name">
+                <label>Image URL</label>
+                <input type="text" class="w3-input" id="pic">
                 <label for="qestion-one">I like to live in places where its cold most of the year</label>
-                <input type="number" min="1" max="5" name="question-one" id="q1"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q1"> 
                 <label for="qestion-two">Televsion is life</label>
-                <input type="number" min="1" max="5" name="question-two" id="q2"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q2"> 
                 <label for="question-three">Basketball is the best sport</label>
-                <input type="number" min="1" max="5" name="question-three" id="q3"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q3"> 
                 <label for="question-four">Baseball is the best sport</label>
-                <input type="number" min="1" max="5" name="question-four" id="q4"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q4"> 
                 <label for="question-five">Lebron James over Kobe Bryant</label>
-                <input type="number" min="1" max="5" name="question-five" id="q5"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q5"> 
                 <label for="question-six">Chocolate ice cream over Vanilla</label>
-                <input type="number" min="1" max="5" name="question-six" id="q6"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q6"> 
                 <label for="question-seven">I like to live in places where its hot and dry year round</label>
-                <input type="number" min="1" max="5" name="question-seven" id="q7"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q7"> 
                 <label for="question-eight">Marvel over DC</label>
-                <input type="number" min="1" max="5" name="question-eight" id="q8"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q8"> 
                 <label for="question-nine">Playstation over Xbox</label>
-                <input type="number" min="1" max="5" name="question-nine" id="q9"> 
+                <input type="number" class="w3-input" min="1" max="5"  id="q9"> 
                 <label for="question-ten">Jay-Z is the best rapper of all time</label>
-                <input type="number" min="1" max="5" name="question-ten" id="q10"> 
-                <button type="submit" id="submit" >Submit</button>
+                <input type="number" class="w3-input" min="1" max="5"  id="q10"> 
+                <button type="submit" id="submit" class="w3-btn w3-black" >Submit</button>
 
             </form>
+         <div class="w3-container w3-teal"> 
+          <h2>Your perfect match is waiting to be revealed! </h2>
+            <h3 id="match-name">
+                
+               
+
+            </h3>
+            <img id="match-pic" width="500" height="500" src="http://www.evolvefish.com/thumbnail.asp?file=assets/images/vinyl%20decals/EF-VDC-00035(black).jpg&maxx=300&maxy=0" >
         </div>
+        <a href="/"><button class="w3-btn w3-red">
+                HOME
+            </button>
+            </a>
+    </div>
 
         <script>
-            $.
+            $("#submit").on("click", function(event){
+                event.preventDefault();
+            
+            var newFriend = {
+                name: $("#name").val(),
+                image: $("#pic").val(),
+                scores:[parseInt( $("#q1").val()),
+                parseInt($("#q2").val()),
+                parseInt($("#q3").val()),
+                parseInt($("#q4").val()),
+                parseInt($("#q5").val()),
+                parseInt($("#q6").val()),
+                parseInt($("#q7").val()),
+                parseInt($("#q8").val()),
+                parseInt($("#q9").val()),
+                parseInt($("#q10").val()) 
+            ]
+            };
+            console.log(newFriend);
+            $.post("/api/friends", newFriend).done(function(data){
+                $("#match-pic").attr("src", data.matchPic);
+                $("#match-name").text(data.matchName);
+                
+                console.log(data.matchName);
+                console.log(data.matchPic);
+
+            });
+        });
         </script>
     </body>
 </html>
